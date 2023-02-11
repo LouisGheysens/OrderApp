@@ -2,6 +2,9 @@ import { Text, View, TextInput, ImageBackground, Button, KeyboardAvoidingView, P
 import AppStyles from '../styles/AppStyles';
 import React from 'react';
 import InlineTextButton from '../components/InlineTextButton';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+const auth = getAuth();
 
 export default function SignUp({ navigation }) {
   const background =  require("../assets/background.jpg")
@@ -18,6 +21,18 @@ export default function SignUp({ navigation }) {
       setValidationMessage("")
     }
     setValue(value)
+  }
+
+  let signUp = () => {
+    if(password == confirmPassword){
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        setValidationMessage(error.message);
+      })
+    }
   }
 
   return (
@@ -54,7 +69,7 @@ export default function SignUp({ navigation }) {
     <Text style={AppStyles.lightText}>Allready have an account?</Text>
     <InlineTextButton text="Login" onPress={() => navigation.popToTop()}/>
     </View>
-    <Button title='Sign Up' color="#f7b267"/>
+    <Button title='Sign Up' onPress={signUp} color="#f7b267"/>
     </KeyboardAvoidingView>
     </ImageBackground>
   );
