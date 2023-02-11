@@ -52,7 +52,7 @@ export default function SignUp({ navigation }) {
 
     <View style={[AppStyles.rowContainer, AppStyles.topMargin]}>
     <Text style={AppStyles.lightText}>Allready have an account?</Text>
-    <InlineTextButton text="Login" onPress={() => navigation.pop()}/>
+    <InlineTextButton text="Login" onPress={() => navigation.popToTop()}/>
     </View>
     <Button title='Sign Up' color="#f7b267"/>
     </KeyboardAvoidingView>

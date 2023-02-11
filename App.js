@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import Login from './screens/Login';
 import SignUp from './screens/SignUp';
+import ResetPassword from './screens/ResetPassword';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigtor } from '@react-navigation/native-stack';
 
@@ -16,6 +17,10 @@ export default function App() {
       <Stack.Screen
       name="SignUp"
       component={SignUp}
+      options={{headerShown: false}} />
+      <Stack.Screen
+      name="ResetPassword"
+      component={ResetPassword}
       options={{headerShown: false}} />
     </Stack.Navigator>
     </NavigationContainer>

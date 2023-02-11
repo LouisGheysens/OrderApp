@@ -38,7 +38,7 @@ export default function Login({ navigation }) {
 
     <View style={[AppStyles.rowContainer, AppStyles.bottomMargin]}>
     <Text style={AppStyles.lightText}>Forgotten your password?</Text>
-    <InlineTextButton text="Reset" />
+    <InlineTextButton text="Reset" onPress={() => navigation.navigate("ResetPassword")} />
     </View>
 
 
