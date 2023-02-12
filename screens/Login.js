@@ -2,12 +2,34 @@ import { Text, View, TextInput, ImageBackground, Button, KeyboardAvoidingView, P
 import AppStyles from '../styles/AppStyles';
 import React from 'react';
 import InlineTextButton from '../components/InlineTextButton';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase'
+
 
 export default function Login({ navigation }) {
   const background =  require("../assets/background.jpg")
 
+  if(auth.currentUser){
+    navigation.navigate("Item")
+  }
+
+  let [errorMessage, setErrorMessage] = React.useState("")
   let [email, setEmail] =  React.useState("");
   let [password, setPassword] =  React.useState("");
+
+  let login = () => {
+    if(email !== "" && password !== ""){
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        navigation.navigate("Item", { user: userCredential.user });
+      })
+      .catch((error) => {
+        setErrorMessage(error.message)
+      });
+    }else{
+      setErrorMessage("Please enter an email and password")
+    }
+  }
 
   return (
     <ImageBackground style={AppStyles.container} source={background}>
@@ -16,6 +38,7 @@ export default function Login({ navigation }) {
     behavior={Platform.OS === "ios" ? "padding" : null}
     keyboardVerticalOffset={60}>
     <Text style={[AppStyles.lightText, AppStyles.header]}>Login</Text>
+    <Text style={AppStyles.errorText}>{errorMessage}</Text>
     <TextInput 
     style={[AppStyles.textInput, AppStyles.lightTextInput, AppStyles.lightText]}
      placeholder='Email' 
@@ -42,7 +65,7 @@ export default function Login({ navigation }) {
     </View>
 
 
-    <Button title='Login' color="#f7b267"/>
+    <Button title='Login' onPress={login} color="#f7b267"/>
     </KeyboardAvoidingView>
     </ImageBackground>
   );

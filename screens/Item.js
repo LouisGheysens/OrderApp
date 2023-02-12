@@ -1,9 +1,8 @@
-import { View, Text, AppState } from 'react-native';
+import { View } from 'react-native';
 
-export default function Item({ navigation }){
+export default function Item({ navigation, route }){
     return (
         <View style={AppStyles.container}>
-
         </View>
     )
 }

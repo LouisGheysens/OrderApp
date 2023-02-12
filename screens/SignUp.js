@@ -2,9 +2,8 @@ import { Text, View, TextInput, ImageBackground, Button, KeyboardAvoidingView, P
 import AppStyles from '../styles/AppStyles';
 import React from 'react';
 import InlineTextButton from '../components/InlineTextButton';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-
-const auth = getAuth();
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase'
 
 export default function SignUp({ navigation }) {
   const background =  require("../assets/background.jpg")
@@ -27,7 +26,7 @@ export default function SignUp({ navigation }) {
     if(password == confirmPassword){
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        navigation.navigate("Item", { user: userCredential.user });
       })
       .catch((error) => {
         setValidationMessage(error.message);

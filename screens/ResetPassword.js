@@ -2,11 +2,24 @@ import { Text, View, TextInput, ImageBackground, Button, KeyboardAvoidingView, P
 import AppStyles from '../styles/AppStyles';
 import React from 'react';
 import InlineTextButton from '../components/InlineTextButton';
+import { auth } from '../firebase'
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 export default function ResetPassword({ navigation }) {
   const background =  require("../assets/background.jpg")
 
   let [email, setEmail] =  React.useState("");
+  let [errorMessage, setErrorMessage] = React.useState("");
+
+  let resetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+      navigation.popToTop();
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    })
+  }
 
 
   return (
@@ -16,6 +29,7 @@ export default function ResetPassword({ navigation }) {
     behavior={Platform.OS === "ios" ? "padding" : null}
     keyboardVerticalOffset={60}>
     <Text style={[AppStyles.lightText, AppStyles.header]}>Reset Password</Text>
+    <Text style={AppStyles.errorText}>{errorMessage}</Text>
     <TextInput 
     style={[AppStyles.textInput, AppStyles.lightTextInput, AppStyles.lightText]}
      placeholder='Email' 
