@@ -9,10 +9,6 @@ import { auth } from '../firebase'
 export default function Login({ navigation }) {
   const background =  require("../assets/background.jpg")
 
-  if(auth.currentUser){
-    navigation.navigate("Item")
-  }
-
   let [errorMessage, setErrorMessage] = React.useState("")
   let [email, setEmail] =  React.useState("");
   let [password, setPassword] =  React.useState("");
@@ -24,7 +20,7 @@ export default function Login({ navigation }) {
         navigation.navigate("Item", { user: userCredential.user });
       })
       .catch((error) => {
-        setErrorMessage(error.message)
+        setErrorMessage("Please enter a valid e-mail address and password")
       });
     }else{
       setErrorMessage("Please enter an email and password")
@@ -54,7 +50,7 @@ export default function Login({ navigation }) {
     value={password}
     onChangeText={setPassword} />
 
-    <View style={[AppStyles.rowContainer, AppStyles.topMargin]}>
+    <View style={[AppStyles.topMargin]}>
     <Text style={AppStyles.lightText}>Don't have an account?</Text>
     <InlineTextButton text="Sign Up" onPress={() => navigation.navigate("SignUp")} />
     </View>
@@ -63,8 +59,6 @@ export default function Login({ navigation }) {
     <Text style={AppStyles.lightText}>Forgotten your password?</Text>
     <InlineTextButton text="Reset" onPress={() => navigation.navigate("ResetPassword")} />
     </View>
-
-
     <Button title='Login' onPress={login} color="#f7b267"/>
     </KeyboardAvoidingView>
     </ImageBackground>
