@@ -23,7 +23,7 @@ export default function ResetPassword({ navigation }) {
 
 
   return (
-    <ImageBackground style={AppStyles.container} source={background}>
+    <ImageBackground style={AppStyles.imageContainer} source={background}>
     <KeyboardAvoidingView 
     style={AppStyles.backgroundCover} 
     behavior={Platform.OS === "ios" ? "padding" : null}
@@ -43,7 +43,7 @@ export default function ResetPassword({ navigation }) {
     <InlineTextButton text="Sign Up" onPress={() => navigation.navigate("SignUp")} />
     </View>
 
-    <Button title='Reset Password' color="#f7b267"/>
+    <Button title='Reset Password' onPress={resetPassword} color="#f7b267"/>
     </KeyboardAvoidingView>
     </ImageBackground>
   );

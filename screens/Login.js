@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <ImageBackground style={AppStyles.container} source={background}>
+    <ImageBackground style={AppStyles.imageContainer} source={background}>
     <KeyboardAvoidingView 
     style={AppStyles.backgroundCover} 
     behavior={Platform.OS === "ios" ? "padding" : null}
