@@ -49,7 +49,7 @@ export default function Item({ navigation }) {
       let deleteItem = async (toDoId) => {
         await deleteDoc(doc(db, "items", toDoId));
         let updatedItems = [...items].filter((item) => item.id != toDoId);
-        setToDos(updatedItems);
+        setItems(updatedItems);
       };
 
     let renderItem = ({item}) => {
