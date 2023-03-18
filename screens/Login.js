@@ -2,12 +2,22 @@ import { Text, View, TextInput, ImageBackground, Button, KeyboardAvoidingView, P
 import AppStyles from '../styles/AppStyles';
 import React from 'react';
 import InlineTextButton from '../components/InlineTextButton';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase'
 
 
 export default function Login({ navigation }) {
   const background =  require("../assets/background.jpg")
+
+  if(auth.currentUser){
+    navigation.navigate("Item");
+  }else{
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        navigation.navigate("Item");
+      }
+    })
+  }
 
   let [errorMessage, setErrorMessage] = React.useState("")
   let [email, setEmail] =  React.useState("");

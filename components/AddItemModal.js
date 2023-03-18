@@ -14,7 +14,7 @@ export default function AddItemModal(props) {
         placeholder='Item' 
         value={item}
         onChangeText={setItem} />
-        <View style={[AppStyles.rowContainer, AppStyles.rightAlined, AppStyles.rightMargin]}>
+        <View style={[AppStyles.rowContainer, AppStyles.rightAligned, AppStyles.rightMargin]}>
         <Button title="Cancel" onPress={props.onClose} />
         <Button title="OK" onPress={() => {
             props.addItem(item)
