@@ -1,4 +1,4 @@
-import { View, Button, Text, Modal, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Button, Text, Modal, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
 import InlineTextButton from '../components/InlineTextButton';
 import AppStyles from '../styles/AppStyles'
 import { auth, db } from '../firebase';
@@ -42,13 +42,13 @@ export default function Item({ navigation }) {
     }
 
     let checkItem = (item, isChecked) => {
-        const toDoRef = doc(db, 'items', item.id);
-        setDoc(toDoRef, { completed: isChecked }, { merge: true });
+        const itemRef = doc(db, 'items', item.id);
+        setDoc(itemRef, { completed: isChecked }, { merge: true });
       };
     
-      let deleteItem = async (toDoId) => {
-        await deleteDoc(doc(db, "items", toDoId));
-        let updatedItems = [...items].filter((item) => item.id != toDoId);
+      let deleteItem = async (itemId) => {
+        await deleteDoc(doc(db, "items", itemId));
+        let updatedItems = [...items].filter((item) => item.id != itemId);
         setItems(updatedItems);
       };
 
@@ -88,7 +88,7 @@ export default function Item({ navigation }) {
     let showContent = () => {
         return (
             <View>
-            {isLoading ? <ActivityIndicator /> : showItemList}
+            {isLoading ? <ActivityIndicator size="large" /> : showItemList() }
             <Button 
             title='Add Item' 
             onPress={() => setModalVisible(true)}
@@ -120,7 +120,7 @@ export default function Item({ navigation }) {
         let updatedItems = [...items];
         updatedItems.push(itemToSave);
     
-        setToDos(updatedItems);
+        setItems(updatedItems);
     };
 
     return (

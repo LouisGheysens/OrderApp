@@ -9,16 +9,6 @@ import { auth } from '../firebase'
 export default function Login({ navigation }) {
   const background =  require("../assets/background.jpg")
 
-  if(auth.currentUser){
-    navigation.navigate("Item");
-  }else{
-    onAuthStateChanged(auth, (user) => {
-      if(user) {
-        navigation.navigate("Item");
-      }
-    })
-  }
-
   let [errorMessage, setErrorMessage] = React.useState("")
   let [email, setEmail] =  React.useState("");
   let [password, setPassword] =  React.useState("");
