@@ -7,6 +7,7 @@ import React from 'react';
 import AddItemModal from '../components/AddItemModal';
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore"
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import PopupDialog, { DialogTitle } from "react-native-popup-dialog";
 
 export default function Item({ navigation }) {
 
@@ -113,6 +114,8 @@ export default function Item({ navigation }) {
             userId: auth.currentUser.uid
           };
 
+        try{
+            
         const docRef = await addDoc(collection(db, "items"), itemToSave);
 
         itemToSave.id = docRef.id;
@@ -121,6 +124,9 @@ export default function Item({ navigation }) {
         updatedItems.push(itemToSave);
     
         setItems(updatedItems);
+          }catch(error) {
+            console.log(error);
+          }
     };
 
     return (

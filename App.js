@@ -5,6 +5,7 @@ import ResetPassword from './screens/ResetPassword';
 import { NavigationContainer } from '@react-navigation/native';
 import Item from './screens/Item';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ManageAccount from './screens/ManageAccount';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,10 @@ export default function App() {
       <Stack.Screen
       name="ResetPassword"
       component={ResetPassword}
+      options={{headerShown: false}} />
+      <Stack.Screen
+      name="ManageAccount"
+      component={ManageAccount}
       options={{headerShown: false}} />
       <Stack.Screen
       name="Item"
